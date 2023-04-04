@@ -11,10 +11,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const first = require("./router/getProjects");
+const GetProjects = require("./router/getProjects");
 
-app.get("/", (req, res) => res.send("Node App is running"));
-app.use("/", first);
+app.get("/", (req, res) => res.send("About-Me-Server is running"));
+app.use("/", GetProjects);
 
 db.connect((err) => {
   if (err) {

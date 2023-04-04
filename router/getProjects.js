@@ -13,7 +13,6 @@ router.get("/githubprojects", async (req, res) => {
     if (err) {
       throw err;
     } else {
-      console.log(result.rows[0]);
       res.status(200).send(result.rows);
     }
   });
