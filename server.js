@@ -6,6 +6,10 @@ const db = require("./config/config");
 
 const PORT = process.env.SERVER_PORT || 3000;
 
+const { networkInterfaces } = require("os");
+const nets = networkInterfaces();
+const results = []; // Or just '{}', an empty object
+
 const app = express();
 
 app.use(express.json());
@@ -25,6 +29,21 @@ db.connect((err) => {
 
 global.db = db;
 
-app.listen(PORT, () => console.log(`About-me-server running on port ${PORT}`));
+app.listen(PORT, () => {
+  for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+      const familyV4Value = typeof net.family === "string" ? "IPv4" : 4;
+      if (net.family === familyV4Value && !net.internal) {
+        if (!results[name]) {
+          results[name] = [];
+        }
+        results.push(net.address);
+      }
+    }
+  }
+  console.log(
+    `About-me-server running on port http://${results.pop()}:${PORT}`
+  );
+});
 
 module.exports = app;
