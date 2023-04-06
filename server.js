@@ -20,15 +20,6 @@ const GetProjects = require("./router/getProjects");
 app.get("/", (req, res) => res.send("About-Me-Server is running"));
 app.use("/", GetProjects);
 
-db.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("connected");
-});
-
-global.db = db;
-
 app.listen(PORT, () => {
   for (const name of Object.keys(nets)) {
     for (const net of nets[name]) {
