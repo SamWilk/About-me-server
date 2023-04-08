@@ -16,9 +16,11 @@ app.use(express.json());
 app.use(cors());
 
 const GetProjects = require("./router/getProjects");
+const GetExperince = require("./router/getExperince");
 
 app.get("/", (req, res) => res.send("About-Me-Server is running"));
 app.use("/", GetProjects);
+app.use("/", GetExperince);
 
 app.listen(PORT, () => {
   for (const name of Object.keys(nets)) {
